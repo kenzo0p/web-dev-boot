@@ -1,5 +1,5 @@
 //  use this quizData in your app.
-export const quizData = [{
+const quizData = [{
     "question": "Which language runs in a web browser?",
     "a": "Java",
     "b": "C",
@@ -33,3 +33,68 @@ export const quizData = [{
 },
 // you can add more quiz here
 ]
+
+let currentQuiz = 0;
+let score = 0;
+
+const questionEl = document.getElementById('question');
+const answerEls = document.querySelectorAll('.answer');
+const a_text = document.getElementById('a_text');
+const b_text = document.getElementById('b_text');
+const c_text = document.getElementById('c_text');
+const d_text = document.getElementById('d_text');
+const submitBtn = document.getElementById('submit');
+const error = document.querySelector('.error');
+
+loadQuiz();
+
+function loadQuiz() {
+    deselectAnswers();
+    const currentQuizData = quizData[currentQuiz];
+    questionEl.innerText = currentQuizData.question;
+    a_text.innerText = currentQuizData.a;
+    b_text.innerText = currentQuizData.b;
+    c_text.innerText = currentQuizData.c;
+    d_text.innerText = currentQuizData.d;
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false);
+}
+
+function getSelected() {
+    let answer;
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id;
+        }
+    });
+    return answer;
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected();
+    if(!answer) {
+        error.innerText = 'Please select an answer';
+        return;
+    }
+    error.innerText = '';
+    
+    if(answer === quizData[currentQuiz].correct) {
+        score++;
+    }
+    
+    currentQuiz++;
+    
+    if(currentQuiz < quizData.length) {
+        loadQuiz();
+    } else {
+        questionEl.innerHTML = `
+            You answered ${score}/${quizData.length} questions correctly
+        `;
+        submitBtn.innerHTML = 'Reload';
+        submitBtn.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+});
