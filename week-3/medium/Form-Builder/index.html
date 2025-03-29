@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="form-builder">
+        <h1>Form Builder</h1>
+        <div id="form-container"></div>
+        <div id="controls">
+            <button onclick="addInput('text')">Add Text Input</button>
+            <button onclick="addInput('email')">Add Email Input</button>
+            <button onclick="addInput('password')">Add Password Input</button>
+            <button onclick="addInput('submit')">Add Submit Button</button>
+        </div>
+    </div>
+
+    <style>
+        #form-builder {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #form-container {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        #controls button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #controls button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script>
+        function addInput(type) {
+            const formContainer = document.getElementById('form-container');
+            const input = document.createElement('input');
+            input.type = type;
+            input.placeholder = type.charAt(0).toUpperCase() + type.slice(1);
+            input.style.display = 'block';
+            input.style.margin = '10px 0';
+            formContainer.appendChild(input);
+        }
+    </script>
+</body>
+</html>

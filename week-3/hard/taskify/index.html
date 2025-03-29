@@ -1,0 +1,33 @@
+<script>
+    function addTask(columnId) {
+        const input = document.getElementById(`${columnId}-input`);
+        const taskText = input.value.trim();
+        if (taskText) {
+            const task = document.createElement('div');
+            task.className = 'task';
+            task.textContent = taskText;
+            task.draggable = true;
+            task.ondragstart = dragStart;
+            task.id = `task-${Date.now()}`; // Assign a unique ID
+            document.querySelector(`#${columnId} .tasks`).appendChild(task);
+            input.value = '';
+        }
+    }
+
+    function dragStart(event) {
+        event.dataTransfer.setData('text/plain', event.target.id);
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event, columnId) {
+        event.preventDefault();
+        const taskId = event.dataTransfer.getData('text/plain');
+        const task = document.getElementById(taskId);
+        if (task) {
+            document.querySelector(`#${columnId} .tasks`).appendChild(task);
+        }
+    }
+</script>
