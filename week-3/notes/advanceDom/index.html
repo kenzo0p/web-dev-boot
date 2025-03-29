@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Advance Dom</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background-color: #f4f4f4;
+            }
+
+            div {
+                margin-bottom: 20px;
+            }
+
+            input {
+                padding: 10px;
+                font-size: 16px;
+                width: 300px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            .todo-container {
+                width: 400px;
+            }
+
+            .todo-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: white;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                transform: translateY(-20px);
+                animation: fadeIn 0.5s forwards;
+            }
+
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .delete-btn,
+            .edit-btn,
+            .save-btn {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-left: 10px; /* Add spacing between buttons */
+            }
+
+            .delete-btn:hover {
+                background-color: #a71d2a;
+            }
+
+            .edit-btn {
+                background-color: #ffc107;
+            }
+
+            .edit-btn:hover {
+                background-color: #e0a800;
+            }
+
+            .save-btn {
+                background-color: #28a745;
+            }
+
+            .save-btn:hover {
+                background-color: #218838;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <input type="text" placeholder="Add the todo" />
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+        <div class="todo-container"></div>
+        <script>
+            function addTodo() {
+                const inputEl = document.querySelector("input");
+                const todoText = inputEl.value.trim();
+                if (!todoText) return;
+
+                const divEl = document.createElement("div");
+                divEl.classList.add("todo-item");
+
+                const spanEl = document.createElement("span");
+                spanEl.textContent = todoText;
+
+                const editButtonEl = document.createElement("button");
+                editButtonEl.textContent = "Edit";
+                editButtonEl.classList.add("edit-btn");
+                editButtonEl.onclick = () => {
+                    const inputEditEl = document.createElement("input");
+                    inputEditEl.type = "text";
+                    inputEditEl.value = spanEl.textContent;
+                    inputEditEl.style.marginRight = "10px";
+
+                    const saveButtonEl = document.createElement("button");
+                    saveButtonEl.textContent = "Save";
+                    saveButtonEl.classList.add("save-btn");
+                    saveButtonEl.onclick = () => {
+                        if (inputEditEl.value.trim() !== "") {
+                            spanEl.textContent = inputEditEl.value.trim();
+                        }
+                        divEl.replaceChild(spanEl, inputEditEl);
+                        divEl.replaceChild(editButtonEl, saveButtonEl);
+                    };
+
+                    divEl.replaceChild(inputEditEl, spanEl);
+                    divEl.replaceChild(saveButtonEl, editButtonEl);
+                };
+
+                const deleteButtonEl = document.createElement("button");
+                deleteButtonEl.textContent = "Delete";
+                deleteButtonEl.classList.add("delete-btn");
+                deleteButtonEl.onclick = () => {
+                    divEl.style.animation = "fadeOut 0.5s forwards";
+                    setTimeout(() => divEl.remove(), 500);
+                };
+
+                divEl.appendChild(spanEl);
+                divEl.appendChild(editButtonEl);
+                divEl.appendChild(deleteButtonEl);
+                document.querySelector(".todo-container").appendChild(divEl);
+
+                inputEl.value = "";
+            }
+        </script>
+    </body>
+</html>
