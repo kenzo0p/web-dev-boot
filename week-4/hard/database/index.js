@@ -7,6 +7,7 @@ mongoose.connect('your-mongodb-url');
 
 const UserSchema = new mongoose.Schema({
     // Schema definition here
+    username:{type:String , required:true , unique:true},
 });
 
 const TodoSchema = new mongoose.Schema({
