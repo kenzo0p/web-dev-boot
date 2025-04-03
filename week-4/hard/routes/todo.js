@@ -1,14 +1,34 @@
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/user");
+const { Todo } = require("../database");
 const router = Router();
 
 // todo Routes
-router.post('/', (req, res) => {
+router.post('/', adminMiddleware , async(req, res) => {
     // Implement todo creation logic
+    try {
+        const {title  , description , completed} = req.body;
+        if(!title || !description || !completed){
+            return res.status(400).json({message : "All fields are required"});
+        }
+        const newTodo = await Todo.create({
+            title : title,
+            description : description,
+            completed :completed
+        })
+        if(!newTodo){
+            return res.status(400).json({message : "Something went wrong"});
+        }
+        
+    } catch (error) {
+        console.log(error , "Error while creating the todo");
+        return res.status(500).json("Internal server error");
+    }
 });
 
 router.put('/', adminMiddleware, (req, res) => {
-    // Implement update todo  logic
+    //TODO : Implement update todo  logic
+
 });
 
 router.delete('/', adminMiddleware, (req, res) => {
