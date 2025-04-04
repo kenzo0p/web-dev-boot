@@ -1,7 +1,16 @@
 const mongoose = require("mongoose");
 
 // Connect to MongoDB
-mongoose.connect("your-mongodb-url");
+export const conectionInstance = async () => {
+  try {
+    await mongoose
+      .connect("your-mongodb-url")
+      .then(() => console.log("Mongodb connection successfull"))
+      .catch(() => console.log("Mongodb connection failed"));
+  } catch (error) {
+    console.log(error, "Mongodb Connection failed");
+  }
+};
 
 // Define schemas
 
