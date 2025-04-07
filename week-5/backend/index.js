@@ -13,6 +13,6 @@ app.use(express.urlencoded({extended:true}));
 
 connectDb().then(() =>{
     app.listen(PORT , ()=>{
-        console.log(`http://localhost:${PORT}`)
+        console.log(`Server runnning on : http://localhost:${PORT}`)
     })
 }).catch((err) => console.log("MONGODB CONNECTION FAILED!!!",err))
