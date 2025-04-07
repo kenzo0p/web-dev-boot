@@ -48,9 +48,17 @@ const TokenBlacklistSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 600, // automatically remove after 10 minutes (matches token expiry)
+    expires: 600, // 10 minutes in seconds
+    index: true, // Add index for better query performance
+  },
+  invalidatedAt: {
+    type: Date,
+    default: Date.now,
   },
 });
+
+// Add index for token field
+TokenBlacklistSchema.index({ token: 1 });
 
 const User = mongoose.model("User", UserSchema);
 const Todo = mongoose.model("Todo", TodoSchema);

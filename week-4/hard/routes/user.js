@@ -89,17 +89,31 @@ router.get("/todos", userMiddleware, async (req, res) => {
 });
 
 router.post("/logout", userMiddleware, async (req, res) => {
-  // Implement logout logic
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ message: "No token provided" });
+    const token = req.token; // Get token from middleware
+
+    // Check if token is already blacklisted
+    const existingBlacklist = await TokenBlacklist.findOne({ token });
+    if (existingBlacklist) {
+      return res.status(400).json({ message: "Token already invalidated" });
     }
-    await TokenBlacklist.create({ token });
-    return res.status(200).json({ message: "User logged out successfully" });
+
+    // Add token to blacklist
+    await TokenBlacklist.create({
+      token,
+      createdAt: new Date(),
+    });
+
+    return res.status(200).json({
+      message: "Logged out successfully",
+      success: true,
+    });
   } catch (error) {
     console.log("LOGOUT ERROR", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({
+      message: "Error during logout",
+      error: error.message,
+    });
   }
 });
 
