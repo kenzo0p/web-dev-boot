@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const UserRoute = require("./routes/user.js");
 const TodoRoute = require("./routes/todo.js");
+const { conectionInstance } = require("./database/index.js");
 
 const app = express();
 const port = process.env.PORT;
@@ -15,6 +16,7 @@ app.get("/healthy", (req, res) => res.send("I am Healthy"));
 app.use("/api/v1/users", UserRoute);
 app.use("/api/v1/todos", TodoRoute);
 
-app.listen(port, () =>
-  console.log(`server is running at http://localhost:${port}`)
-);
+app.listen(port , () => {
+    conectionInstance();
+    console.log(port , "Server started");
+})

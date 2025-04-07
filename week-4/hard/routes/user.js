@@ -14,12 +14,10 @@ router.post("/signup", async (req, res) => {
       return res.status(404).json({ message: "All Fieds are requied" });
     const user = await User.findOne({ email });
     if (user) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "User already exist with this email please kindly login or you are trying access another person 😅",
-        });
+      return res.status(400).json({
+        message:
+          "User already exist with this email please kindly login or you are trying access another person 😅",
+      });
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
