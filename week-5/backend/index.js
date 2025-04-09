@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import connectDb from "./db/index.js";
 import userRoute from "./routes/user.route.js";
+import todoRoute from "./routes/todo.route.js";
 const app = express();
 const PORT = process.env.PORT;
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/users", userRoute);
+app.use("/todos", todoRoute);
 
 connectDb()
   .then(() => {

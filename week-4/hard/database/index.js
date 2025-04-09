@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 // Connect to MongoDB
 export const conectionInstance = async () => {
@@ -65,7 +65,7 @@ const Todo = mongoose.model("Todo", TodoSchema);
 
 const TokenBlacklist = mongoose.model("TokenBlacklist", TokenBlacklistSchema);
 
-module.exports = {
+export {
   User,
   Todo,
   TokenBlacklist,

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script>
+      async function signup() {
+        const username = document.getElementById("signup-username").value;
+        const password = document.getElementById("signup-password").value;
+
+        //fetch or axios
+        const response = await axios.post("http://localhost:3000/signup", {
+          username: username,
+          password: password,
+        });
+        alert("you are signed in");
+      }
+      async function signin() {
+        try {
+          const username = document.getElementById("signin-username").value;
+          const password = document.getElementById("signin-password").value;
+          const response = await axios.post("http://localhost:3000/login", {
+            username: username,
+            password: password,
+          });
+          const { token } = response.data;
+          if (token) {
+            localStorage.setItem("XYZ_AUTH_TOKEN", token);
+            alert("Successfully signed in!");
+            await getUserInfo(); // Fetch user info immediately after login
+          }
+        } catch (error) {
+          console.error('Login error:', error);
+          alert(error.response?.data?.message || "Login failed");
+        }
+      }
+      async function getUserInfo() {
+        try {
+          const token = localStorage.getItem("XYZ_AUTH_TOKEN");
+          if (!token) {
+            document.getElementById("information").innerHTML = "Please login first";
+            return;
+          }
+          
+          const response = await axios.get("http://localhost:3000/me", {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+          });
+          
+          if (response.data.success && response.data.user) {
+            document.getElementById("information").innerHTML = 
+              `Username: ${response.data.user.username}<br>
+               Password: ${response.data.user.password}`;
+          } else {
+            document.getElementById("information").innerHTML = "No user data found";
+          }
+        } catch (error) {
+          console.error('Error fetching user info:', error);
+          if (error.response?.status === 401) {
+            localStorage.removeItem("XYZ_AUTH_TOKEN");
+            document.getElementById("information").innerHTML = "Session expired. Please login again.";
+          } else {
+            document.getElementById("information").innerHTML = "Error fetching user data";
+          }
+        }
+      }
+      
+      async function logout() {
+        localStorage.removeItem("XYZ_AUTH_TOKEN");
+        document.getElementById("information").innerHTML = "";
+        alert("Logged out successfully");
+      }
+      
+      // Only call getUserInfo if there's a token
+      if (localStorage.getItem("XYZ_AUTH_TOKEN")) {
+        getUserInfo();
+      }
+    </script>
+  </head>
+
+  <body>
+    <div>
+      Signup
+      <input
+        id="signup-username"
+        type="text"
+        name="username"
+        placeholder="Username"
+      />
+      <input id="signup-password" type="password" name="password"
+      placeholder="Password" />
+      <button onclick="signup()">Submit</button>
+    </div>
+    <div>
+      Signin
+      <input
+        id="signin-username"
+        type="text"
+        name="username"
+        placeholder="Username"
+      />
+      <input
+        id="signin-password"
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+      <button onclick="signin()">Submit</button>
+    </div>
+    <div>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div>
+      User information:
+      <div id="information"></div>
+    </div>
+  </body>
+</html>

@@ -36,7 +36,7 @@ const login = async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password)
       return res.status(400).json({ message: "All fiels are required" });
-    const isUser = await User.findOne({username});
+    const isUser = await User.findOne({ username });
     if (!isUser) {
       return res
         .status(400)
@@ -46,7 +46,9 @@ const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Password is not correct" });
     }
-    const token = jwt.sign({ isUser: isUser._id }, "secret", { expiresIn: "600s" });
+    const token = jwt.sign({ userId: isUser._id }, "ombhor", {
+      expiresIn: "600s",
+    });
     return res
       .status(200)
       .json({ message: "Login successfully", isUser, token });
@@ -58,6 +60,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
+
     if (!token) {
       return res.status(401).json({ message: "No token provided" });
     }

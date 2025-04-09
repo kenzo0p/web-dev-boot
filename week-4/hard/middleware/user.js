@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const { TokenBlacklist } = require('../database');
+import jwt from "jsonwebtoken"
+import { TokenBlacklist } from "../database/index.js";
 
 async function userMiddleware(req, res, next) {
     try {
@@ -34,4 +34,4 @@ async function userMiddleware(req, res, next) {
     }
 }
 
-module.exports = userMiddleware;
+export default userMiddleware;
