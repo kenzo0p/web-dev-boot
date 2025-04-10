@@ -1,13 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taskify Frontend</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taskify</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #d8bbe7;
+      }
+      h1 {
+        color: rgb(155, 72, 232);
+      }
+      .todo-card {
+        width: 50vh;
+        background: rgb(201, 172, 229);
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px rgb(200, 169, 227);
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background: blueviolet;
+        color: #fff;
+      }
+      input {
+        padding: 10px;
+        background: rgb(216, 195, 235);
+        border: none;
+        border-radius: 10px;
+      }
+      ::placeholder {
+        color: white;
+        opacity: 1; /* Firefox */
+      }
+      .inp {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      p {
+        color: yellow;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
     <!-- start writing code -->
-    <script src="./script.js"></script>    
-</body>
+    <div class="todo-card">
+      <h1>Your Todo List</h1>
+      <div class="inp">
+        <input type="text" placeholder="Add a new todo" />
+        <button>Add todo</button>
+      </div>
+      <div class="Todo-list"></div>
+      <p>Logged in successfully. <a href="">Logout</a></p>
+    </div>
+    <script src="./script.js"></script>
+  </body>
 </html>
