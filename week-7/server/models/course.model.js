@@ -5,7 +5,7 @@ const courseSchema = new mongoose.Schema(
     title: String,
     description: String,
     price: Number,
-    imgaeUrl: String,
+    imageUrl: String,
     creatorId: mongoose.Schema.Types.ObjectId,
   },
   { timestamps: true }
