@@ -87,7 +87,6 @@ const PetAdoptionForm = () => {
             phone: ""
         })
     }
-
     /**
      * The handleGoBack function toggles the value of showTable.
      */

@@ -50,16 +50,4 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-userRouter.get("/users/courses", (req, res) => {
-  // logic to list all courses
-});
-
-userRouter.post("/users/courses/:courseId", (req, res) => {
-  // logic to purchase a course
-});
-
-userRouter.get("/users/purchasedCourses", (req, res) => {
-  // logic to view purchased courses
-});
-
 module.exports = userRouter;

@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Header = () => {
+const Header = ({message}) => {
   return (
-    <div>Header</div>
-  )
-}
+    <div>
+      <nav style={{
+        backgroundColor : "#c59771bd",
+        padding:"16px"
 
-export default Header
+      }} className="header-nav">
+        <h1>{message}</h1>
+      </nav>
+    </div>
+  );
+};
+
+export default Header;
