@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const content_controller_1 = require("../controllers/content.controller");
+const middleware_1 = require("../middlewares/middleware");
+const contentRouer = (0, express_1.Router)();
+contentRouer.route("/").post(middleware_1.UserMiddleware, content_controller_1.createContent);
+contentRouer.route("/").get(middleware_1.UserMiddleware, content_controller_1.getContents);
+contentRouer.route("/").delete(middleware_1.UserMiddleware, content_controller_1.deleteContents);
+exports.default = contentRouer;
