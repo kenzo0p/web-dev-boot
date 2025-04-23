@@ -23,5 +23,18 @@ function log() {
     console.log("Hi there");
 }
 console.log(delayedCall(log));
-let greet = () => console.log("Hii");
-greet();
+function greet(user) {
+    console.log("hello" + user.name);
+}
+greet({ name: "om", age: 18 });
+function greet1(user) { }
+let User = {
+    firstname: "om",
+    lastname: "bhor",
+    age: 21,
+};
+let t = {
+    name: "om",
+    age: 12,
+    department: "manager",
+};

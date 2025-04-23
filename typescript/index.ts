@@ -71,3 +71,4 @@ let t: TeamLead = {
   department: "manager",
 };
 
+
