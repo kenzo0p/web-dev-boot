@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 import jwt from "jsonwebtoken"
 import { connectDb } from "./db/db";
 import userRouter from "./routes/user.routes";
-import contentRouer from "./routes/content.routes";
+import contentRouter from "./routes/content.routes";
 const app = express();
 
 
@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended : true}));
 
 
 app.use("/api/v1/users" , userRouter);
-app.use("/api/v1/content" , contentRouer);
+app.use("/api/v1/content" , contentRouter);
 
 // app.get("api/v1/content" , (req , res) => {
 
