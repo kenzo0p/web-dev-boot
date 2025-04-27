@@ -9,10 +9,11 @@ export const createContent = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { link, type } = req.body;
+    const { link, type , title } = req.body;
     await ContentModel.create({
       link,
       type,
+      title,
       //@ts-ignore
       userId: req.userId,
       tags: [],

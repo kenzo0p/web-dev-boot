@@ -6,16 +6,18 @@ import jwt from "jsonwebtoken"
 import { connectDb } from "./db/db";
 import userRouter from "./routes/user.routes";
 import contentRouter from "./routes/content.routes";
+import cors from "cors"
 const app = express();
 
 
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 
-app.use("/api/v1/users" , userRouter);
-app.use("/api/v1/content" , contentRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/content", contentRouter);
 
 // app.get("api/v1/content" , (req , res) => {
 
@@ -34,7 +36,7 @@ app.use("/api/v1/content" , contentRouter);
 // })
 
 
-app.listen(3000 , () => {
+app.listen(3000, () => {
     connectDb();
     console.log("3000")
 })

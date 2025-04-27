@@ -16,10 +16,11 @@ const utils_1 = require("../utils");
 const user_model_1 = require("../models/user.model");
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { link, type } = req.body;
+        const { link, type, title } = req.body;
         yield content_model_1.ContentModel.create({
             link,
             type,
+            title,
             //@ts-ignore
             userId: req.userId,
             tags: [],
@@ -74,7 +75,7 @@ const shareContent = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 userId: req.userId,
                 hash: hash,
             });
-            res.json({ message: "/share/" + hash });
+            res.json({ message: hash });
         }
         else {
             //@ts-ignore
