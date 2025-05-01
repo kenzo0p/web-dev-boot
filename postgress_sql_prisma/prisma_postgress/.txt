@@ -1,0 +1,7 @@
+npm i prisma
+npx prisma init
+
+
+ -- for migration   npx prisma migrate dev
+
+ -- for client npx prisma generate
