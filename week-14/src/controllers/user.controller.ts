@@ -63,4 +63,24 @@ const login = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
+
+const getUser = async(req  : Request , res  : Response) : Promise<any> => {
+  try {
+    const {username} = req.params;
+    if(!username) {
+      return res.status(400).json("Username is required");
+    }
+    const user = await prisma.user.findUnique({
+      where: { username: username },
+    });
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Something went wrong in get user", error);
+    return res.status(500).json("Internal server error");
+  }
+}
+
 export { registerUser , login };
